@@ -169,7 +169,7 @@ async def help(ctx):
         description='以下為機器人指令的說明',
         color=discord.Color.green()
     )
-    for command in bot.tree.commands:
+    for command in bot.tree.walk_commands():
         embed.add_field(
             name=command.name,
             value=command.description,
