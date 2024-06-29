@@ -93,6 +93,12 @@ async def enable_cog(ctx, cog: str):
     if ctx.user.id not in BOT_ADMIN:
         await ctx.response.send_message('你沒有權限使用此機器人', ephemeral=True)
         return
+    if cog == '*':
+        # 先卸載全部Cog
+        for cog in bot.cogs:
+            await bot.unload_extension(f'Cogs.{cog}')
+        # 啟用全部Cog
+        await load_extensions()
     try:
         # 檢查是否有該Cog
         if os.path.isfile(f'./Cogs/{cog}.py') == False:

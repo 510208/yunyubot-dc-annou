@@ -29,6 +29,12 @@ class AnnouStat(commands.Cog):
         self.bot = bot
         logger.info("AnnouStat cog 已經載入")
 
+        # 註冊上下文菜單
+        self.bot.tree.context_menu(name='將維修狀態更新為還未開始')(self.stat_to_wait)
+        self.bot.tree.context_menu(name='將維修狀態更新為維修中')(self.stat_to_doing)
+        self.bot.tree.context_menu(name='將維修狀態更新為擱置中')(self.stat_to_pause)
+        self.bot.tree.context_menu(name='將維修狀態更新為已完成')(self.stat_to_done)
+
     @app_commands.context_menu(name='將維修狀態更新為還未開始')
     async def stat_to_wait(interaction: discord.Interaction, message: discord.Message):
         logging.info('維修狀態更新為還未開始')
