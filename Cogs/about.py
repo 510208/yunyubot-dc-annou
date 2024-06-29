@@ -27,7 +27,7 @@ class About(commands.Cog):
     async def about(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title = "關於",
-            description = "這是一個機器人",
+            description = "這是雲與生存服專用的機器人\n由插件師兼伺服器工程師SamHacker搭建",
             color = 0x00ff00
         )
         embed.add_field(
@@ -53,7 +53,7 @@ class About(commands.Cog):
         # 附加一張圖片，位置在main.py的同一層目錄下resources資料夾中
         file = discord.File("resources/cover.png", filename="cover.png")
         embed.set_image(url="attachment://cover.png")
-        await interaction.send(embed=embed)
+        await interaction.response.send_message(embed=embed)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(About(bot))

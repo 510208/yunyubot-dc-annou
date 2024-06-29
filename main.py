@@ -56,16 +56,16 @@ async def cog_list(ctx):
     # 遍覽Cogs資料夾，並取出所有可用Cogs，然後逐一檢查是否被啟用
     logging.info('取得Cogs列表')
     logging.info(f'請求發起人：{ctx.user}')
-    cogs = []
-    for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
-            cogs.append(filename[:-3])
+    # cogs = []
+    # for filename in os.listdir('./cogs'):
+    #     if filename.endswith('.py'):
+    #         cogs.append(filename[:-3])
         
     # 取出已啟用的Cogs
-    enabled_cogs = []
-    for cog in cogs:
-        if cog in bot.cogs:
-            enabled_cogs.append(cog)
+    # enabled_cogs = []
+    # for cog in cogs:
+    #     if cog in bot.cogs:
+    #         enabled_cogs.append(cog)
     
     # 回傳Embed訊息
     embed = discord.Embed(
@@ -73,14 +73,26 @@ async def cog_list(ctx):
         description='以下為所有Cogs列表',
         color=discord.Color.blue()
     )
-    embed.add_field(
-        name='已啟用',
-        value='\n'.join(enabled_cogs) if enabled_cogs else '無'
-    )
-    embed.add_field(
-        name='未啟用',
-        value='\n'.join([cog for cog in cogs if cog not in enabled_cogs]) if cogs else '無'
-    )
+    logging.info(f'已啟用的Cogs：{bot.cogs}')
+    for cog in bot.cogs:
+        embed.add_field(
+            name=cog,
+            value='<:check:1254019091371397130> 已啟用',
+            inline=False
+        )
+    # 取得bot.cogs的所有鍵名（bot.cogs是一個字典）
+    all_cogs = bot.cogs.keys()
+    # 將all_cogs全部變小寫
+    all_cogs = [cog.lower() for cog in all_cogs]
+    for cog in os.listdir('./Cogs'):
+        if cog.endswith('.py'):
+            if cog[:-3] not in all_cogs:
+                embed.add_field(
+                    name=cog[:-3],
+                    value='<:dangerous:1254019093900558397> 未啟用',
+                    inline=False
+                )
+    embed.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Engranajesreductores.JPG/240px-Engranajesreductores.JPG")
     await ctx.response.send_message(embed=embed)
 
 @bot.tree.command(
@@ -93,12 +105,12 @@ async def enable_cog(ctx, cog: str):
     if ctx.user.id not in BOT_ADMIN:
         await ctx.response.send_message('你沒有權限使用此機器人', ephemeral=True)
         return
-    if cog == '*':
-        # 先卸載全部Cog
-        for cog in bot.cogs:
-            await bot.unload_extension(f'Cogs.{cog}')
-        # 啟用全部Cog
-        await load_extensions()
+    # if cog == '*':
+    #     # 先卸載全部Cog
+    #     for cog in bot.cogs:
+    #         await bot.unload_extension(f'Cogs.{cog}')
+    #     # 啟用全部Cog
+    #     await load_extensions()
     try:
         # 檢查是否有該Cog
         if os.path.isfile(f'./Cogs/{cog}.py') == False:
@@ -204,6 +216,7 @@ async def sync(ctx):
             value=description,
             inline=False
         )
+    embed.set_thumbnail(url="https://gravatar.com/avatar/f7598bd8d4aba38d7219341f81a162fc842376b3b556b1995cbb97271d9e2915?s=256")
     # 正確的調用方式
     await mes.edit(content="完成同步！", embed=embed)
 
