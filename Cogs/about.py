@@ -24,7 +24,7 @@ with open("cfg.yaml", "r", encoding="utf-8") as file:
 
 class About(commands.Cog):
     @app_commands.command(name='關於')
-    async def about(interaction: discord.Interaction):
+    async def about(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title = "關於",
             description = "這是一個機器人",
@@ -54,3 +54,6 @@ class About(commands.Cog):
         file = discord.File("resources/cover.png", filename="cover.png")
         embed.set_image(url="attachment://cover.png")
         await interaction.send(embed=embed)
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(About(bot))

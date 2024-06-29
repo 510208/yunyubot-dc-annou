@@ -35,8 +35,8 @@ class AnnouStat(commands.Cog):
         self.bot.tree.context_menu(name='將維修狀態更新為擱置中')(self.stat_to_pause)
         self.bot.tree.context_menu(name='將維修狀態更新為已完成')(self.stat_to_done)
 
-    @app_commands.context_menu(name='將維修狀態更新為還未開始')
-    async def stat_to_wait(interaction: discord.Interaction, message: discord.Message):
+    # @app_commands.context_menu(name='將維修狀態更新為還未開始')
+    async def stat_to_wait(self, interaction: discord.Interaction, message: discord.Message):
         logging.info('維修狀態更新為還未開始')
         logging.info(f'請求發起人：{interaction.user}')
                 # 檢查訊息是否為機器人發送
@@ -64,8 +64,8 @@ class AnnouStat(commands.Cog):
         await interaction.send('維修狀態已更新為還未開始')
         return
     
-    @app_commands.context_menu(name='將維修狀態更新為維修中')
-    async def stat_to_doing(interaction: discord.Interaction, message: discord.Message):
+    # @app_commands.context_menu(name='將維修狀態更新為維修中')
+    async def stat_to_doing(self, interaction: discord.Interaction, message: discord.Message):
         logging.info('維修狀態更新為維修中')
         logging.info(f'請求發起人：{interaction.user}')
                 # 檢查訊息是否為機器人發送
@@ -93,8 +93,8 @@ class AnnouStat(commands.Cog):
         await interaction.send('維修狀態已更新為維修中')
         return
     
-    @app_commands.context_menu(name='將維修狀態更新為擱置中')
-    async def stat_to_pause(interaction: discord.Interaction, message: discord.Message):
+    # @app_commands.context_menu(name='將維修狀態更新為擱置中')
+    async def stat_to_pause(self, interaction: discord.Interaction, message: discord.Message):
         logging.info('維修狀態更新為擱置中')
         logging.info(f'請求發起人：{interaction.user}')
                 # 檢查訊息是否為機器人發送
@@ -122,8 +122,8 @@ class AnnouStat(commands.Cog):
         await interaction.send('維修狀態已更新為擱置中')
         return
     
-    @app_commands.context_menu(name='將維修狀態更新為已完成')
-    async def stat_to_done(interaction: discord.Interaction, message: discord.Message):
+    # @app_commands.context_menu(name='將維修狀態更新為已完成')
+    async def stat_to_done(self, interaction: discord.Interaction, message: discord.Message):
         logging.info('維修狀態更新為已完成')
         logging.info(f'請求發起人：{interaction.user}')
         # 檢查訊息是否為機器人發送
