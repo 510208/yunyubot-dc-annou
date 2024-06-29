@@ -25,6 +25,10 @@ with open("cfg.yaml", "r", encoding="utf-8") as file:
     cfg = yaml.safe_load(file)
 
 class AnnouStat(commands.Cog):
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
+        logger.info("AnnouStat cog 已經載入")
+
     @app_commands.context_menu(name='將維修狀態更新為還未開始')
     async def stat_to_wait(interaction: discord.Interaction, message: discord.Message):
         logging.info('維修狀態更新為還未開始')
@@ -147,3 +151,6 @@ class AnnouStat(commands.Cog):
         await message.edit(content=newmsg)
         await interaction.send('維修狀態已更新為已完成')
         return
+    
+async def setup(bot):
+    await bot.add_cog(AnnouStat(bot))
