@@ -27,7 +27,7 @@ class About(commands.Cog):
     async def about(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title = "關於",
-            description = "這是雲與生存服專用的機器人\n由插件師兼伺服器工程師SamHacker搭建",
+            description = "這是雲羽生存服專用的機器人\n由插件師兼伺服器工程師SamHacker搭建",
             color = 0x00ff00
         )
         embed.add_field(
