@@ -5,13 +5,13 @@ from discord.ext.commands import CommandNotFound
 import os
 import json
 import asyncio
-from sympy import epath
 
 # Logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(lineno)d: [%(asctime)s][%(levelname)s] - [%(module)s] %(message)s'
 )
+logging.getLogger('discord').setLevel(logging.INFO)
 
 # 可以使用指令的使用者ID
 BOT_ADMIN = [
@@ -20,7 +20,7 @@ BOT_ADMIN = [
 ]
 
 # Bot
-bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
+bot = commands.Bot(command_prefix='sh!', intents=discord.Intents.all())
 
 # Cogs Slash Command
 @bot.event
@@ -95,12 +95,11 @@ async def enable_cog(ctx, cog: str):
         return
     try:
         # 檢查是否有該Cog
-        if cog not in bot.cogs:
+        if os.path.isfile(f'./Cogs/{cog}.py') == False:
             await ctx.response.send_message('找不到該Cog')
             return
-        
         # 啟用Cog
-        bot.load_extension(f'cogs.{cog}')
+        await bot.load_extension(f'Cogs.{cog}')
         await ctx.response.send_message(f'已啟用{cog}')
     except Exception as e:
         logging.error(f'發生錯誤：{e}')
@@ -118,12 +117,12 @@ async def disable_cog(ctx, cog: str):
         return
     try:
         # 檢查是否有該Cog
-        if cog not in bot.cogs:
+        if os.path.isfile(f'./Cogs/{cog}.py') == False:
             await ctx.response.send_message('找不到該Cog')
             return
         
         # 停用Cog
-        bot.unload_extension(f'cogs.{cog}')
+        await bot.unload_extension(f'Cogs.{cog}')
         await ctx.response.send_message(f'已停用{cog}')
     except Exception as e:
         logging.error(f'發生錯誤：{e}')
@@ -141,36 +140,84 @@ async def reload_cog(ctx, cog: str):
         return
     try:
         # 檢查是否有該Cog
-        if cog not in bot.cogs:
+        if os.path.isfile(f'./Cogs/{cog}.py') == False:
             await ctx.response.send_message('找不到該Cog')
             return
         
         # 重新載入Cog
-        bot.reload_extension(f'cogs.{cog}')
+        await bot.reload_extension(f'Cogs.{cog}')
         await ctx.response.send_message(f'已重新載入{cog}')
     except Exception as e:
         logging.error(f'發生錯誤：{e}')
         await ctx.response.send_message(f'發生錯誤：{e}')
 
-@bot.event
-async def on_message(message):
-    if message.author.bot:
+@bot.tree.command(
+    name='說明',
+    description='取得機器人指令的說明'
+)
+async def help(ctx):
+    logging.info('取得指令說明')
+    logging.info(f'請求發起人：{ctx.user}')
+    embed = discord.Embed(
+        title='指令說明',
+        description='以下為機器人指令的說明',
+        color=discord.Color.green()
+    )
+    for command in bot.tree.commands:
+        embed.add_field(
+            name=command.name,
+            value=command.description,
+            inline=False
+        )
+    await ctx.response.send_message(embed=embed)
+
+@bot.command(
+    name='sync',
+    description='同步指令'
+)
+async def sync(ctx):
+    logging.info('同步指令中...')
+    if ctx.author.id not in BOT_ADMIN:
+        await ctx.send('你沒有權限使用此機器人')
         return
-    if message.user.id not in BOT_ADMIN:
-        await message.channel.send('你沒有權限使用此機器人', ephemeral=True)
+    mes = await ctx.send('同步指令中...')
+    slash = await bot.tree.sync()
+    if not slash:
+        await ctx.send('指令同步失敗')
         return
-    if message.content.startswith('sh!'):
-        cmd = message.content.split('!')[1]
-        if cmd == 'sync':
-            syncedcmd = await bot.tree.sync()
-            await message.channel.send(f'✅ 同步指令成功！\n{syncedcmd}', ephemeral=True)
-            return
-        
+    embed = discord.Embed(
+        title='指令同步',
+        description='指令同步完成',
+        color=discord.Color.green()
+    )
+    for slash_sl in slash:
+        name = slash_sl.name
+        description = slash_sl.description
+        embed.add_field(
+            name=name,
+            value=description,
+            inline=False
+        )
+    # 正確的調用方式
+    await mes.edit(content="完成同步！", embed=embed)
+
 # 一開始bot開機需載入全部程式檔案
 async def load_extensions():
     for filename in os.listdir("./cogs"):
-        if filename.endswith(".py"):
-            await bot.load_extension(f"cogs.{filename[:-3]}")
+        if filename.endswith(".py") and not(filename.startswith("nl")):
+            try:
+                logging.info(f"載入{filename}中...")
+                await bot.load_extension(f"Cogs.{filename[:-3]}")
+                logging.info(f"載入{filename}成功")
+                logging.getLogger(f'Cogs.{filename}').setLevel(logging.INFO)
+            except Exception as e:
+                logging.error(f"載入{filename}失敗：{e}")
+                continue
+        else:
+            if filename.startswith("nl"):
+                logging.info(f"跳過{filename}, 原因：採用nl方式跳過載入")
+            else:
+                logging.info(f"跳過{filename}")
 
 # Start Bot
 with open('token.txt', 'r') as f:
