@@ -97,7 +97,7 @@ class FixModal(discord.ui.Modal, title = "發送修復公告"):
     begin_time = ui.TextInput(
         label = "開始時間",
         style = discord.TextStyle.paragraph,
-        placeholder = "請輸入開始時間，格式為YYYY-MM-DD HH:MM:SS",
+        placeholder = "請輸入開始時間，格式為YYYY-MM-DD HH:MM",
         required = True,
         custom_id = "begin_time"
     )
@@ -106,8 +106,8 @@ class FixModal(discord.ui.Modal, title = "發送修復公告"):
     end_time = ui.TextInput(
         label = "結束時間",
         style = discord.TextStyle.paragraph,
-        placeholder = "請輸入結束時間，格式為YYYY-MM-DD HH:MM:SS",
-        required = True,
+        placeholder = "請輸入結束時間，格式為YYYY-MM-DD HH:MM",
+        required = False,
         custom_id = "end_time"
     )
 
@@ -123,7 +123,7 @@ class FixModal(discord.ui.Modal, title = "發送修復公告"):
         else:
             self.reason_value = self.reason.value
         if re.match(pattern = r"[0-9]*4-[0-9][1-9]-[0-9][1-9] [0-2][0-9]:[0-5][0-9]", string = self.begin_time.value):
-            self.begin_time_value = self.begin_time.value
+            self.begin_time_value = self.begin_time.value + ":00"
             self.begin_time_unix = int(datetime.datetime.strptime(self.begin_time_value, "%Y-%m-%d %H:%M:%S").timestamp())
             self.begin_time_unix = f"<t:{self.begin_time_unix}:F>"
         else:
@@ -131,7 +131,7 @@ class FixModal(discord.ui.Modal, title = "發送修復公告"):
             await ctx.response.send_message("<:dangerous:1254019093900558397> 開始時間格式錯誤，請重新輸入", ephemeral = True)
             return
         if re.match(pattern = r"[0-9]*4-[0-9][1-9]-[0-9][1-9] [0-2][0-9]:[0-5][0-9]", string = self.end_time.value):
-            self.end_time_value = self.end_time.value
+            self.end_time_value = self.end_time.value + ":00"
             self.end_time_unix = int(datetime.datetime.strptime(self.end_time_value, "%Y-%m-%d %H:%M:%S").timestamp())
             self.end_time_unix = f"<t:{self.end_time_unix}:F>"
         elif self.end_time.value == "":

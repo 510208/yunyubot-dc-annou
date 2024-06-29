@@ -41,11 +41,11 @@ class AnnouStat(commands.Cog):
         logging.info(f'請求發起人：{interaction.user}')
                 # 檢查訊息是否為機器人發送
         if message.author.id != interaction.application_id:
-            await interaction.send('此訊息不是由機器人發送')
+            await interaction.response.send_message('此訊息不是由機器人發送')
             return
         # 檢查使用者是否為機器人管理員
-        if interaction.author.id not in BOT_ADMIN:
-            await interaction.send('你沒有權限使用此機器人')
+        if interaction.user.id not in BOT_ADMIN:
+            await interaction.response.send_message('你沒有權限使用此機器人')
             return
         # 將選取的訊息分片成陣列
         msg = message.content.split('\n')
@@ -61,7 +61,7 @@ class AnnouStat(commands.Cog):
         newmsg = '\n'.join(msg)
         # 更新訊息
         await message.edit(content=newmsg)
-        await interaction.send('維修狀態已更新為還未開始')
+        await interaction.response.send_message('維修狀態已更新為還未開始')
         return
     
     # @app_commands.context_menu(name='將維修狀態更新為維修中')
@@ -70,11 +70,11 @@ class AnnouStat(commands.Cog):
         logging.info(f'請求發起人：{interaction.user}')
                 # 檢查訊息是否為機器人發送
         if message.author.id != interaction.application_id:
-            await interaction.send('此訊息不是由機器人發送')
+            await interaction.response.send_message('此訊息不是由機器人發送')
             return
         # 檢查使用者是否為機器人管理員
-        if interaction.author.id not in BOT_ADMIN:
-            await interaction.send('你沒有權限使用此機器人')
+        if interaction.user.id not in BOT_ADMIN:
+            await interaction.response.send_message('你沒有權限使用此機器人')
             return
         # 將選取的訊息分片成陣列
         msg = message.content.split('\n')
@@ -90,7 +90,7 @@ class AnnouStat(commands.Cog):
         newmsg = '\n'.join(msg)
         # 更新訊息
         await message.edit(content=newmsg)
-        await interaction.send('維修狀態已更新為維修中')
+        await interaction.response.send_message('維修狀態已更新為維修中')
         return
     
     # @app_commands.context_menu(name='將維修狀態更新為擱置中')
@@ -99,11 +99,11 @@ class AnnouStat(commands.Cog):
         logging.info(f'請求發起人：{interaction.user}')
                 # 檢查訊息是否為機器人發送
         if message.author.id != interaction.application_id:
-            await interaction.send('此訊息不是由機器人發送')
+            await interaction.response.send_message('此訊息不是由機器人發送')
             return
         # 檢查使用者是否為機器人管理員
-        if interaction.author.id not in BOT_ADMIN:
-            await interaction.send('你沒有權限使用此機器人')
+        if interaction.user.id not in BOT_ADMIN:
+            await interaction.response.send_message('你沒有權限使用此機器人')
             return
         # 將選取的訊息分片成陣列
         msg = message.content.split('\n')
@@ -119,7 +119,7 @@ class AnnouStat(commands.Cog):
         newmsg = '\n'.join(msg)
         # 更新訊息
         await message.edit(content=newmsg)
-        await interaction.send('維修狀態已更新為擱置中')
+        await interaction.response.send_message('維修狀態已更新為擱置中')
         return
     
     # @app_commands.context_menu(name='將維修狀態更新為已完成')
@@ -128,11 +128,11 @@ class AnnouStat(commands.Cog):
         logging.info(f'請求發起人：{interaction.user}')
         # 檢查訊息是否為機器人發送
         if message.author.id != interaction.application_id:
-            await interaction.send('此訊息不是由機器人發送')
+            await interaction.response.send_message('此訊息不是由機器人發送')
             return
         # 檢查使用者是否為機器人管理員
-        if interaction.author.id not in BOT_ADMIN:
-            await interaction.send('你沒有權限使用此機器人')
+        if interaction.user.id not in BOT_ADMIN:
+            await interaction.response.send_message('你沒有權限使用此機器人')
             return
         # 將選取的訊息分片成陣列
         msg = message.content.split('\n')
@@ -155,7 +155,7 @@ class AnnouStat(commands.Cog):
         msg[linenum + 1] = f"- **<:stop:1254016323013443584> 結束**：{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         # 更新訊息
         await message.edit(content=newmsg)
-        await interaction.send('維修狀態已更新為已完成')
+        await interaction.response.send_message('維修狀態已更新為已完成')
         return
     
 async def setup(bot):
