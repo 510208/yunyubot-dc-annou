@@ -1,3 +1,6 @@
+![image](https://github.com/510208/yunyubot-dc-annou/assets/107909497/b0a0cc43-1769-4ef7-b17f-704851b0175e)
+
+
 # CloudFeather Announcement Bot
 
 這是一個提供給 [🪶Minecraft 雲羽伺服器](https://discord.gg/CfGvx3NQWZ) 的 Discord Bot，由服主 SamHacker 編寫。為了幫助更多人而不限於我們伺服器內部，我將此專案開源出來給大家使用
@@ -97,9 +100,10 @@ $ pip install -r requirements.txt
 
 ## ⛏ 編輯配置
 
-> **請注意！！**
->
-> 編輯完後記得要關閉機器人並重新開啟喔！
+> [!CAUTION]
+> 編輯完配置後記得要關閉機器人並重新開啟以加載新版本
+
+先跟各位使用者說聲抱歉，我沒有辦法編寫配置文件。如果有人願意協助我編寫，我會很感激的！
 
 ### 公告引言
 
@@ -141,3 +145,140 @@ $ pip install -r requirements.txt
 - `{self.reason}`：維修原因，只有在維修公告處有用，放在更新公告會報錯！
 - `{self.start}`、`{self.end}`：維修開始與結束時間
 
+你可以任意填寫以上提供的選項在你的模板中，但請記得不要移除前後的大括號，否則版型仍然會出錯喔！
+
+### 停用部分模組
+
+以下表格是目前有的模組列表，位於`Cogs`資料夾中：
+
+| **檔案名稱** | **用途** | **開發者** | **備註** |
+|:--- |:---|:---|:---|
+| `annou.py` | 發送公告的程式碼，內建有兩種公告型式 | @510208 |  |
+| `annou_stat.py` | 修改維修公告狀態的程式碼 | @510208 | |
+| `about.py` | 關於機器人 | @510208 | |
+
+未經提及的檔案與`nl`開頭的檔案請直接視為測試檔案，它們並不重要
+
+如果要停用某個模組或它不應該被視為模組載入（它可能是某個模組需要的函式庫、程式碼等，但它的結尾為.py檔案時），請為該檔案檔名最前方加上`nl_`（只需要nl開頭即可，加上底線是為了未來識別方便）即可。例如試圖停用`about.py`，你可以將它改名為`nl_about.py`（或任何以nl開頭的檔名，nl代表Not Load）。主模組會自動載入的檔案須滿足以下條件：
+
+1. 檔名不由nl開頭
+2. 是Python原始碼格式（也就是副檔名.py）
+
+倘若檔案違反以上任何規則，程式就會在終端機透過訊息提示不載入與其原因
+
+### 更改關於頁面的作者訊息
+
+> [!IMPORTANT]
+> 請在 about 提供的資訊中保留原作者的資訊，謝謝您的使用！
+
+如果你要更改關於頁面的作者訊息，請照以下說明：
+
+1. 進入`/Cogs/about.py`
+2. 定位到`async def about(self, interaction: discord.Interaction):`的位置，下方就是關於頁面訊息內容
+3. 以下是詳細說明：
+
+#### 標題與簡述
+
+```python
+embed = discord.Embed(
+    title = "關於",
+    description = "這是雲羽生存服專用的機器人\n由插件師兼伺服器工程師SamHacker搭建",
+    color = 0x00ff00
+)
+```
+
+- `title`：標題，建議保持預設
+- `description`：說明，請記得文句要用`\n`斷行，以及不能手動換行
+- `color`：Embed的顏色
+
+#### 作者名與相同格式內容
+
+```python
+embed.add_field(
+    name = "作者",
+    value = "SamHacker"
+)
+```
+
+- `value`：內容，請照情況修改
+
+> [!IMPORTANT]
+> 作者欄請記得要保留我的名稱，謝謝
+
+#### 大頭貼
+
+```python
+# 設定大頭貼
+embed.set_thumbnail(url="https://gravatar.com/avatar/f7598bd8d4aba38d7219341f81a162fc842376b3b556b1995cbb97271d9e2915?s=256")
+```
+
+將`url`後方的字串修改即可
+
+其他部分請照說明的方式修改，也可不修改
+
+## 🆖 協助開發
+
+首先，我個人也不是什麼太厲害的人，對於這邊的貢獻流程如果有建議歡迎提Issue補充！總之非常感謝你願意看到這一步，如果你也想為這個專案做貢獻，請照以下說明操作：
+
+### ❗ 常見錯誤
+
+#### 特權網關意圖錯誤
+
+```
+discord.errors.PrivilegedIntentsRequired: Shard ID None is requesting privileged intents that have not been explicitly enabled in the developer portal. It is recommended to go to https://discord.com/developers/applications/ and explicitly enable the privileged intents within your application's page. If this is not possible, then consider disabling the privileged intents instead.
+```
+
+以上是特權網關意圖錯誤，如果你的錯誤碼類似這樣，請前往 [Discord Developer Portal](https://discord.com/developers/applications)，進入機器人選項後在Bots底下的"Privileged Gateway Intents"全部勾選後Save並且重啟即可排除
+
+#### Token錯誤
+
+```
+discord.errors.LoginFailure: Improper token has been passed.
+```
+
+類似以上訊息，可能是你的 Token 錯誤。請照上方教學重新前往開發者面板並取得新的 Token 後 再次嘗試，仍然錯誤再前來詢問
+
+
+> [!CAUTION]
+> 如果 Token 被你誤發到 Github 等平台，Discord 也會自動重置該組 Token 以防止意外發生
+
+### ❓ 遇到問題
+
+如果你遇到以下情況，請照這個章節的說明操作：
+
+- 遇到Traceback錯誤以致無法執行或啟動
+- 執行或啟動過程中遇到Traceback錯誤，但仍能繼續走流程
+- 或其他問題適合提Issue
+
+請在 [Issues](https://github.com/510208/yunyubot-dc-annou/issues) 中提出問題，並提供以下必須資訊（如果不提供或找不到，我們有權利不做受理）：
+
+- Python版本與機器人版本（可以透過Git檢視Commit的編號）
+- 錯誤內容
+- 如何啟動這個錯誤
+- 發現時間
+- 是否已經確定不是自己問題
+
+有部分錯誤已知解決方法並列在常見錯誤區段中，請自行先做檢查後再提 Issue，否則我們有權不受理
+
+### ❤ 協助開發
+
+非常謝謝你願意協助這個機器人的完善，未來我會考慮更換一下這個機器人的名稱。順帶一提，本機器人應該不會是 [Nether Bot](https://github.com/510208/nether) 的繼承人（至少現在不會）
+
+如果你要協助開發，請參考[CONTRIBUTING.md](CONTRIBUTING.md)的描述，謝謝您
+
+### 💗 贊助專案
+
+> [!IMPORTANT]
+> 我們目前不接受任何格式的贊助，非常遺憾
+
+## 🙏 備註與謝誌
+
+非常感謝 @510208 的開發，與以下用戶的協助：
+
+| **用戶或團體** | **內容** |
+|:---|:---|
+| [雲羽生存服](https://discord.gg/CfGvx3NQWZ) | 提供Discord群組做為測試之用 |
+| [Asteroid Bot Hosting](https://discord.gg/DuJEFKqckm) | 提供機器人24小時託管 |
+| LunarKdeo3147 | 協助測試專案與提供建議 |
+
+與你的使用！
