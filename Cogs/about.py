@@ -36,7 +36,7 @@ class About(commands.Cog):
         )
         embed.add_field(
             name = "版本",
-            value = "1.0.0"
+            value = "1.0.1"
         )
         embed.add_field(
             name = "授權條款",
