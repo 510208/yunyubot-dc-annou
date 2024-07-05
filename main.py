@@ -296,4 +296,9 @@ async def main():
 
 # 確定執行此py檔才會執行
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        await bot.close()
+        logging.info('Bot已關閉，謝謝使用！')
+        exit(0)
