@@ -5,6 +5,7 @@ from discord.ext.commands import CommandNotFound
 import os
 import yaml
 import asyncio
+import platform
 
 # Logging
 logging.basicConfig(
@@ -30,7 +31,23 @@ bot = commands.Bot(command_prefix='sh!', intents=discord.Intents.all())
 # Cogs Slash Command
 @bot.event
 async def on_ready():
-    logging.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    ASCII_CODE = f"""
+____________________________________________________
+
+         \   /|  |
+          \ / |  |  Logged in as {bot.user}
+           T  |  |  Bot ID: {bot.user.id}
+           |  \__/
+____________________________________________________
+
+  OS: {platform.system()} {platform.release()}
+  Python Version: {platform.python_version()}
+  Discord.py Version: {discord.__version__}
+  Development by 510208, Thanks for using!
+
+"""
+    for line in ASCII_CODE.split('\n'):
+        logging.info(line)
     logging.info('------')
     for guild in bot.guilds:
         logging.info(f'{guild.name} (ID: {guild.id})')

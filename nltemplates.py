@@ -1,4 +1,12 @@
 import datetime
+import yaml
+import logging
+
+logger = logging.getLogger(__name__)
+
+with open('cfg.yml', 'r', encoding='utf-8') as f:
+    cfg = yaml.load(f, Loader=yaml.FullLoader)
+    logger.info('讀取cfg.yml成功！')
 
 class UpdateMsgGen():
     def __init__(
@@ -20,8 +28,35 @@ class UpdateMsgGen():
         # 利用datetime將當前時間轉換成UNIX時間戳（字串）
         self.timestamp = str(round(datetime.datetime.now().timestamp()))
         self.starter = starter
-        self.text = f"""
-## 雲羽更新
+#         self.text = f"""
+# ## 雲羽更新
+
+# {self.intro}
+
+# ### 更新內容
+# {self.content}
+
+
+# 最後，祝各位 **<:gousthappy:1194802726442381312>在本服中遊玩愉快！**
+# 期待各位的新進度，掰掰！
+
+# 📢 雲羽生存服 管理團隊 - <@{self.starter}> 敬上
+#    <t:{self.timestamp}:F>
+
+# [ ||<@&1190290928112517212>||  |  ||<@&1190291336750960773>||  |  ||<@&1190298140692185128>||  |  ||<@&1186541054514704434>||]
+# """
+        try:
+            self.text = cfg["update_format"].format(
+                intro=self.intro,
+                content=self.content,
+                timestamp=self.timestamp,
+                starter=self.starter
+            )
+        # 在格式化中找不到佔位符時會報錯，這時就回報錯誤
+        except KeyError:
+            logger.warning("找不到佔位符，將使用預設訊息")
+            self.text = f"""
+## 伺服器更新
 
 {self.intro}
 
@@ -33,7 +68,7 @@ class UpdateMsgGen():
 期待各位的新進度，掰掰！
 
 📢 雲羽生存服 管理團隊 - <@{self.starter}> 敬上
-   <t:{self.timestamp}:F>
+<t:{self.timestamp}:F>
 
 [ ||<@&1190290928112517212>||  |  ||<@&1190291336750960773>||  |  ||<@&1190298140692185128>||  |  ||<@&1186541054514704434>||]
 """
@@ -65,8 +100,46 @@ class FixMsgGen():
         self.start = time["begin"]
         self.end = time["end"]
         self.starter = starter
-        self.text = f"""
-## 雲羽維修
+#         self.text = f"""
+# ## 雲羽維修
+
+# {self.intro}
+
+# ### 維修原因
+# {self.reason}
+
+# ### 維修預計時間
+# - **<a:928961403749019649:1198243923915718706> 開始**：{self.start}
+# - **<a:928961427685904385:1198243930731458651> 結束**：{self.end}
+
+# ### 維修造成影響
+# {self.content}
+
+# ### 維修狀態
+# <:dangerous:1254019093900558397> 還未開始
+
+
+# 很抱歉打擾各位的生活了，希望各位見諒
+# 為了維持完美的遊戲體驗，讓我們一起共創更美好的伺服器！<a:yeees:1197923046149853195> 
+
+# 📢 雲羽生存服 管理團隊 - <@{self.starter}> 敬上
+
+# [ ||<@&1190290928112517212>||  |  ||<@&1190291336750960773>||  |  ||<@&1190298140692185128>||  |  ||<@&1186541054514704434>||]
+# """
+        try:
+            self.text = cfg["fix_format"].format(
+                intro=self.intro,
+                reason=self.reason,
+                start=self.start,
+                end=self.end,
+                content=self.content,
+                starter=self.starter
+            )
+        # 在格式化中找不到佔位符時會報錯，這時就回報錯誤
+        except KeyError:
+            logger.warning("找不到佔位符，將使用預設訊息")
+            self.text = f"""
+## 伺服器維修
 
 {self.intro}
 
