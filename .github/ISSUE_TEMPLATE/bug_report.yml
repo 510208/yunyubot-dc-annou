@@ -8,39 +8,95 @@ body:
     attributes:
       value: |
         **感謝你的回報**，我們會盡力協助你解決這些問題的！
+        喔對了，在回答時請使用中文(繁體)或英文其一即可，在表單中使用兩種語言是為了讓更多人能夠理解。
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 你期望的行為是什麼？ What did you expect to happen?
+      description: |
+        請告訴我們，你期望的程式行為是什麼？
+        Please tell us what you expected the program to do.
+      placeholder: (只要告訴我們你期望的行為就好！ Just tell us what you expected!)
+      value: |
+        我期望它能正常運作！
+        I expected it to work normally!
+    validations:
+      required: true
   - type: textarea
     id: what-happened
     attributes:
       label: 發生了什麼錯誤？ What Happend?
-      description: 請告訴我們，到底你的程式發生了什麼問題？ Please tell us what happened.
+      description: |
+        請告訴我們，到底你的程式發生了什麼問題？
+        Please tell us what happened.
       placeholder: (只要告訴我們到底發生了啥就好！ Just tell us what happened!)
-      value: "一個錯蟲出現了！ A bug happened!"
+      value: |
+        一個錯蟲出現了！
+        A bug happened!
     validations:
       required: true
-  - type: dropdown
-    id: browsers
+  - type: textarea
+    id: steps
     attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
+      label: 如何重現這個問題？ How can we reproduce the problem?
+      description: |
+        請告訴我們，如何重現這個問題？
+        Please tell us how to reproduce the problem.
+      placeholder: (只要告訴我們如何重現問題就好！ Just tell us how to reproduce the problem!)
+      value: |
+        1. 啟動機器人
+        2. 輸入 `!ping`
+        3. 看到錯誤
+        1. Start the bot
+        2. Enter `!ping`
+        3. See the error
+    validations:
+      required: true
+  - type: textarea
+    id: os
+    attributes:
+      label: 請提供你環境的版本資訊 What is your enviroment version?
+      description: |
+        請告訴我們你的作業系統版本、Python 版本、Discord.py 版本等等
+        它們應會在正常啟動時出現在終端機上，或是你可以使用 `python --version` 來查看 Python 版本
+        Please tell us your OS version, Python version, Discord.py version, etc.
+        They should appear on the terminal when you start the bot, or you can use `python --version` to check the Python version.
+      placeholder: (請提供你的環境版本資訊 Please provide your enviroment version)
+      value: |
+        OS: Windows 10 22H2 (19045.4529)
+        Python: 3.10.6
+        Pip: 24.1.1
+        Discord.py: 2.3.2
+        pyYAML: 6.0.1
   - type: textarea
     id: logs
     attributes:
       label: 記錄檔輸出了些什麼？ What did the logs output?
       description: |
         請複製貼上你的記錄檔，這將有助於我們找出問題所在。如果記錄檔太長，你可以將其貼在 Gist 上（https://gist.github.com/）
-        
         Please copy and paste your logs, this will help us find the problem. If it too long, you can paste it on Gist (https://gist.github.com/)
       render: shell
   - type: checkboxes
-    id: terms
+    id: check
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com). 
+      label: 請檢查以下項目，看看你是否已經完成了以下步驟 Please check the following items to see if you have completed the following steps
+      description: |
+        在提交問題之前，請確保你已經完成了以下步驟，並確定你的問題並未有其他人回報過
+        Before submitting the issue, please make sure you have completed the following steps and make sure your issue has not been reported by others.
       options:
-        - label: I agree to follow this project's Code of Conduct
+        - label: 我已經閱讀了 Wiki 並且沒有找到解決方案，或者我的問題不在 Wiki 中
           required: true
+        - label: 我已經閱讀了其他問題，並確定我的問題並未有其他人回報過
+          required: true
+        - label: 我並未對程式碼進行任何修改，如果有我會提供修改部分與內容
+          required: true
+        - label: 我使用的程式版本是官方網站下載的，而非其他來源
+          required: true
+  - type: textarea
+    id: other
+    attributes:
+      label: 其他事項 Other
+      description: |
+        如果你有其他事項需要告訴我們，請在這裡寫下來
+        If you have other matters to tell us, please write them here
+      placeholder: (如果有其他事項需要告訴我們，請在這裡寫下來 If you have other matters to tell us, please write them here)
