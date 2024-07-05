@@ -1,0 +1,43 @@
+name: 🐛 回報錯蟲
+description: 讓我們找出為甚麼你的程式不能正常運作
+title: "[Bug]: "
+labels: 
+  - "bug"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **感謝你的回報**，我們會盡力協助你解決這些問題的！
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 發生了什麼錯誤？ What Happend?
+      description: 請告訴我們，到底你的程式發生了什麼問題？ Please tell us what happened.
+      placeholder: (只要告訴我們到底發生了啥就好！ Just tell us what happened!)
+      value: "一個錯蟲出現了！ A bug happened!"
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+  - type: textarea
+    id: logs
+    attributes:
+      label: 記錄檔輸出了些什麼？ What did the logs output?
+      description: 請複製貼上你的記錄檔，這將有助於我們找出問題所在。\n如果記錄檔太長，你可以將其貼在 Gist 上（https://gist.github.com/）\n\nPlease copy and paste your logs, this will help us find the problem.\nIf it too long, you can paste it on Gist (https://gist.github.com/)
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com). 
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
