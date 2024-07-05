@@ -1,0 +1,72 @@
+# 歡迎訊息擴充功能
+
+import discord
+from discord.ext import commands
+from discord import app_commands
+import logging
+import yaml
+
+with open('cfg.yml') as file:
+    config = yaml.load(file, Loader=yaml.FullLoader)
+
+logger = logging.getLogger(__name__)
+
+class Welcome(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        logger.info("Welcome cog 已經載入")
+
+    # 事件
+    @commands.Cog.listener()
+    async def on_member_join(self, member: discord.Member):
+        logger.info(f'{member} 加入了伺服器')
+        channel_id = config['welcome_channel']
+        # 取得頻道
+        channel = member.guild.get_channel(channel_id)
+        # 傳送訊息
+        fmt = config['welcome_message'].format(
+            member = member.mention,
+            member_name = member.name,
+            guild = member.guild.name,
+            member_count = len(member.guild.members),
+            member_id = member.id,
+            member_created_at = member.created_at,
+            member_joined_at = member.joined_at,
+            member_avatar = member.avatar.url
+        )
+        embed = discord.Embed(
+            title = config['welcome_title'],
+            description = fmt,
+            color = discord.Color.green()
+        )
+        embed.set_thumbnail(url=member.avatar_url)
+        await channel.send(embed=embed)
+    
+    @commands.Cog.listener()
+    async def on_member_remove(self, member: discord.Member):
+        logger.info(f'{member} 離開了伺服器')
+        channel_id = config['leave_channel_id']
+        # 取得頻道
+        channel = member.guild.get_channel(channel_id)
+        # 傳送訊息
+        fmt = config['leave_message'].format(
+            member = member.mention,
+            member_name = member.name,
+            guild = member.guild.name,
+            member_count = len(member.guild.members),
+            member_id = member.id,
+            member_created_at = member.created_at,
+            member_joined_at = member.joined_at,
+            member_avatar = member.avatar.url
+        )
+        embed = discord.Embed(
+            title = config["leave_title"],
+            description = fmt,
+            color = discord.Color.red()
+        )
+        embed.set_thumbnail(url=member.avatar_url)
+        await channel.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(Welcome(bot))
+    logger.info("Welcome cog 已經註冊")
