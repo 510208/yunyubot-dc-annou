@@ -244,7 +244,7 @@ async def sync(ctx):
 
 # 一開始bot開機需載入全部程式檔案
 async def load_extensions():
-    for filename in os.listdir("./cogs"):
+    for filename in os.listdir("./Cogs"):
         if filename.endswith(".py") and not(filename.startswith("nl")):
             try:
                 logging.info(f"載入{filename}中...")
