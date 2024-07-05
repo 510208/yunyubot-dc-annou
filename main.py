@@ -1,7 +1,7 @@
 import discord
 import logging
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound
+from discord.ext.commands import CommandNotFound, NoEntryPointError
 import os
 import yaml
 import asyncio
@@ -251,6 +251,9 @@ async def load_extensions():
                 await bot.load_extension(f"Cogs.{filename[:-3]}")
                 logging.info(f"載入{filename}成功")
                 logging.getLogger(f'Cogs.{filename}').setLevel(logging.INFO)
+            except NoEntryPointError as e:
+                logging.error(f"載入{filename}失敗，原因：無子程式加載切入點")
+                continue
             except Exception as e:
                 logging.error(f"載入{filename}失敗：{e}")
                 continue

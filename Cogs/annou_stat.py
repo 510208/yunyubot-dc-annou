@@ -21,7 +21,7 @@ COG_INTRO = {
 }
 
 # 讀取設定檔
-with open("cfg.yaml", "r", encoding="utf-8") as file:
+with open("cfg.yml", "r", encoding="utf-8") as file:
     cfg = yaml.safe_load(file)
 
 class AnnouStat(commands.Cog):
