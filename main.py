@@ -3,7 +3,7 @@ import logging
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 import os
-import json
+import yaml
 import asyncio
 
 # Logging
@@ -13,11 +13,16 @@ logging.basicConfig(
 )
 logging.getLogger('discord').setLevel(logging.INFO)
 
+with open('cfg.yml', 'r', encoding='utf-8') as f:
+    cfg = yaml.load(f, Loader=yaml.FullLoader)
+    logging.info('讀取cfg.yml成功！')
+# 檢查錯誤狀態
+if cfg is None:
+    logging.error('cfg.yml為空！')
+    exit()
+
 # 可以使用指令的使用者ID
-BOT_ADMIN = [
-    "959977374471028779",
-    959977374471028779
-]
+BOT_ADMIN = cfg["admin_id"]
 
 # Bot
 bot = commands.Bot(command_prefix='sh!', intents=discord.Intents.all())
@@ -247,7 +252,27 @@ with open('token.txt', 'r') as f:
 async def main():
     async with bot:
         await load_extensions()
-        await bot.start(token)
+        try:
+            await bot.start(token)
+        except KeyboardInterrupt:
+            await bot.close()
+            logging.info('Bot已關閉，謝謝使用！')
+            exit(0)
+        except discord.LoginFailure as e:
+            logging.error('登入失敗，可能是Token錯誤')
+            logging.error('請前往 https://github.com/510208/yunyubot-dc-annou/?tab=readme-ov-file#token%E9%8C%AF%E8%AA%A4 了解更多')
+            logging.error(f'錯誤訊息：{e}')
+        except discord.errors.RateLimited as e:
+            logging.error('登入失敗，可能是登入次數過多')
+            logging.error('請稍後再試')
+            logging.error(f'錯誤訊息：{e}')
+        except discord.errors.PrivilegedIntentsRequired as e:
+            logging.error('登入失敗，可能是未開啟Privileged Gateway Intents')
+            logging.error('請前往 https://github.com/510208/yunyubot-dc-annou/?tab=readme-ov-file#%E7%89%B9%E6%AC%8A%E7%B6%B2%E9%97%9C%E6%84%8F%E5%9C%96%E9%8C%AF%E8%AA%A4 了解更多')
+            logging.error(f'錯誤訊息：{e}')
+        except Exception as e:
+            logging.error(f'Bot發生錯誤：{e}')
+            logging.error('請前往 https://github.com/510208/yunyubot-dc-annou/?tab=readme-ov-file#-%E9%81%87%E5%88%B0%E5%95%8F%E9%A1%8C 回報錯誤')
 
 # 確定執行此py檔才會執行
 if __name__ == "__main__":
