@@ -1,0 +1,87 @@
+name: 💡 提供建議
+description: |
+  讓我們知道你對我們的程式有什麼建議，我們會盡力將它們加入程式中！
+  Let us know what suggestions you have for our program, and we will do our best to incorporate them into the program!
+title: "[Sug]: "
+labels: 
+  - "enhancement"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **感謝你的建議**，我們會盡力將這些問題加進程式中！
+        喔對了，在回答時請使用中文(繁體)或英文其一即可，在表單中使用兩種語言是為了讓更多人能夠理解。
+        **Thanks to your suggestions!** We will add them into the program as much as possible!
+        Oh, by the way, you can use either Chinese (Traditional) or English when answering. The reason for using two languages in the form is to make it easier for more people to understand.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 你期望的行為是什麼？ What did you expect to happen?
+      description: |
+        請告訴我們，你期望的程式行為是什麼？
+        Please tell us what you expected the program to do.
+      placeholder: (只要告訴我們你期望的行為就好！ Just tell us what you expected!)
+      value: |
+        我期望程式可以做到這些！
+        I expected the program to do these!
+    validations:
+      required: true
+  - type: textarea
+    id: what-and-how
+    attributes:
+      label: 該怎麼辦到，還有為甚麼需要？ What and how to do it, and why?
+      description: |
+        請告訴我們，你認為應該如何實現你的建議，以及為什麼需要這個功能？
+        Please tell us how you think your suggestion should be implemented, and why this feature is needed.
+      value: |
+        我認為這個功能應該這樣實現，因為這樣可以讓程式更加方便使用！
+        I think this feature should be implemented in this way, because it can make the program more convenient to use!
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 你願意協助我們實現這個功能嗎？ Are you willing to help us implement this feature?
+      description: |
+        如果你願意，請告訴我們你可以提供的幫助，例如程式碼、測試等等。或你可以直接提出拉取請求！
+        If you are willing, please tell us the help you can provide, such as code, testing, etc. Or you can directly submit a pull request!
+      value: |
+        我可以提供一些程式碼，但是我不太確定它是否正確。
+        I can provide some code, but I'm not sure if it's correct.
+    validations:
+      required: true
+  - type: textarea
+    id: other-steps
+    attributes:
+      label: 還有其他辦法嗎？ Any other way?
+      description: |
+        我們不確定是否程式真的依照你的想法完成，因此如果我們辦不到，或許可以試試看用這種方法？
+        We are not sure if the program is really completed according to your ideas, so if we can't do it, maybe we can try this method?
+      placeholder: (請簡述其他的解法 Please briefly describe other solutions)
+      value: |
+        我想這個方法也可以，不過我不確定。
+        I think this method is also possible, but I'm not sure.
+  - type: checkboxes
+    id: check
+    attributes:
+      label: 請檢查以下項目，看看你是否已經完成了以下步驟 Please check the following items to see if you have completed the following steps
+      description: |
+        在提交建議之前，請確保你已經完成了以下步驟，並確定你的問題並未有其他人回報過
+        Before submitting the suggestion, please make sure you have completed the following steps and make sure your issue has not been reported by others.
+      options:
+        - label: 這個建議並未存在程式過，所以我才來建議
+          required: true
+        - label: 我相信這個建議可以增強專案的使用，真的
+          required: true
+        - label: 我願意竭盡我所能讓這個建議成真
+          required: true
+        - label: 這個建議的實現不用花費任何金錢，或只有一點點
+          required: true
+  - type: textarea
+    id: other
+    attributes:
+      label: 其他事項 Other
+      description: |
+        如果你有其他事項需要告訴我們，請在這裡寫下來
+        If you have other matters to tell us, please write them here
+      placeholder: (如果有其他事項需要告訴我們，請在這裡寫下來 If you have other matters to tell us, please write them here)
