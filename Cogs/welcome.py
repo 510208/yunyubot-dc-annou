@@ -6,8 +6,8 @@ from discord import app_commands
 import logging
 import yaml
 
-with open('cfg.yml') as file:
-    config = yaml.load(file, Loader=yaml.FullLoader)
+with open('cfg.yml', "r", encoding="utf-8") as file:
+    config = yaml.safe_load(file)
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ class Welcome(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
         logger.info(f'{member} 加入了伺服器')
-        channel_id = config['welcome_channel']
+        channel_id = config['welcome_channel_id']
         # 取得頻道
         channel = member.guild.get_channel(channel_id)
         # 傳送訊息
@@ -67,6 +67,6 @@ class Welcome(commands.Cog):
         embed.set_thumbnail(url=member.avatar_url)
         await channel.send(embed=embed)
 
-def setup(bot):
-    bot.add_cog(Welcome(bot))
+async def setup(bot):
+    await bot.add_cog(Welcome(bot))
     logger.info("Welcome cog 已經註冊")

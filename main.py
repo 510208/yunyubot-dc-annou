@@ -31,7 +31,7 @@ bot = commands.Bot(command_prefix='sh!', intents=discord.Intents.all())
 # Cogs Slash Command
 @bot.event
 async def on_ready():
-    ASCII_CODE = f"""
+    ASCII_CODE = rf"""
 ____________________________________________________
 
          \   /|  |
