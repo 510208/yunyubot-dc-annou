@@ -31,7 +31,10 @@ body:
     id: logs
     attributes:
       label: 記錄檔輸出了些什麼？ What did the logs output?
-      description: 請複製貼上你的記錄檔，這將有助於我們找出問題所在。\n如果記錄檔太長，你可以將其貼在 Gist 上（https://gist.github.com/）\n\nPlease copy and paste your logs, this will help us find the problem.\nIf it too long, you can paste it on Gist (https://gist.github.com/)
+      description: |
+        請複製貼上你的記錄檔，這將有助於我們找出問題所在。如果記錄檔太長，你可以將其貼在 Gist 上（https://gist.github.com/）
+        
+        Please copy and paste your logs, this will help us find the problem. If it too long, you can paste it on Gist (https://gist.github.com/)
       render: shell
   - type: checkboxes
     id: terms
