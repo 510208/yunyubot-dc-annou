@@ -6,6 +6,7 @@ import os
 import yaml
 import asyncio
 import platform
+import json
 
 # Logging
 logging.basicConfig(
@@ -28,6 +29,22 @@ BOT_ADMIN = cfg["admin_id"]
 # Bot
 bot = commands.Bot(command_prefix='sh!', intents=discord.Intents.all())
 
+async def write_slash_synced(slash: discord.app_commands.AppCommand):
+    with open('slash.json', 'w') as f:
+        # 取得所有指令與其說明，並存入陣列中
+        logging.info('寫入指令同步資料')
+        slash = []
+        for command in bot.tree.walk_commands():
+            logging.debug(f'指令名稱：{command.name}，指令說明：{command.description}')
+            slash.append({
+                'name': command.name,
+                'description': command.description
+            })
+        
+        logging.debug(f'指令同步資料：{slash}')
+        json.dump(slash, f)
+        logging.info('指令同步資料寫入成功')
+
 # Cogs Slash Command
 @bot.event
 async def on_ready():
@@ -43,6 +60,7 @@ ____________________________________________________
   OS: {platform.system()} {platform.release()}
   Python Version: {platform.python_version()}
   Discord.py Version: {discord.__version__}
+  YunyuBot Version: {cfg["version"]}
   Development by 510208, Thanks for using!
 
 """
@@ -57,6 +75,7 @@ ____________________________________________________
     slash = await bot.tree.sync()
     if slash:
         logging.info(f'指令同步完成：{slash}')
+        await write_slash_synced(slash)
     else:
         logging.error('指令同步失敗')
 
@@ -297,6 +316,7 @@ async def main():
 # 確定執行此py檔才會執行
 async def close_bot():
     # 卸載全部Cog
+    logging.info('卸載全部Cogs')
     for cog in bot.cogs:
         logging.info(f'卸載{cog}中...')
         try:
@@ -304,6 +324,7 @@ async def close_bot():
             logging.info(f'卸載{cog}成功')
         except Exception as e:
             logging.error(f'卸載{cog}失敗：{e}')
+    logging.info('Bot關閉中...')
     await bot.close()
     logging.info('Bot已關閉，謝謝使用！')
 
