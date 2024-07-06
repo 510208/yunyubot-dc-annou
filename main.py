@@ -295,10 +295,21 @@ async def main():
             logging.error('請前往 https://github.com/510208/yunyubot-dc-annou/?tab=readme-ov-file#-%E9%81%87%E5%88%B0%E5%95%8F%E9%A1%8C 回報錯誤')
 
 # 確定執行此py檔才會執行
+async def close_bot():
+    # 卸載全部Cog
+    for cog in bot.cogs:
+        logging.info(f'卸載{cog}中...')
+        try:
+            bot.unload_extension(f'Cogs.{cog}')
+            logging.info(f'卸載{cog}成功')
+        except Exception as e:
+            logging.error(f'卸載{cog}失敗：{e}')
+    await bot.close()
+    logging.info('Bot已關閉，謝謝使用！')
+
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        await bot.close()
-        logging.info('Bot已關閉，謝謝使用！')
+        asyncio.run(close_bot())
         exit(0)

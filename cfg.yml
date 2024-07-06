@@ -189,10 +189,13 @@ auto_delete:
 # 是否啟用群組事件紀錄
 dc_logging:
   enabled: true                  # 是否啟用群組事件紀錄
-  enabled_for_bot: true          # 是否記錄機器人的事件
+  enabled_for_bot: false          # 是否記錄機器人的事件
   
   # 紀錄頻道ID
   channel_id: 1258999406179520613
+
+  # 是否顯示在控制台
+  console: true
 
   # 紀錄項目
   log_events:
