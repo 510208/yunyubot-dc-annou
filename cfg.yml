@@ -182,3 +182,36 @@ auto_delete:
     {message}
 
 # ================================
+#  ○ 群組事件紀錄設定
+#  齒輪：dclogging.py
+# ================================
+#
+# 是否啟用群組事件紀錄
+dc_logging:
+  enabled: true                  # 是否啟用群組事件紀錄
+  enabled_for_bot: true          # 是否記錄機器人的事件
+  
+  # 紀錄頻道ID
+  channel_id: 1258999406179520613
+
+  # 紀錄項目
+  log_events:
+    msg_send: true
+    msg_edit: true
+    msg_delete: true
+
+    member_join: true
+    member_leave: true
+
+    member_banned: true
+    member_unbanned: true
+
+    member_muted: true
+    member_unmuted: true
+
+    member_role_add: true
+    member_role_remove: true
+
+    vc_join: true
+    vc_leave: true
+    vc_move: true
