@@ -1,4 +1,3 @@
-token.txt
 slash.json
 /.vscode
 /.idea
@@ -6,3 +5,4 @@ slash.json
 __pycache__/*
 
 *.pyc
+token.txt
