@@ -6,5 +6,3 @@ __pycache__/*
 
 *.pyc
 token.txt
-
-cfg.yml
