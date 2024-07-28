@@ -226,3 +226,15 @@ dc_logging:
     vc_join: true
     vc_leave: true
     vc_move: true
+
+# ================================
+#  ○ Pterodactyl API設定
+#  齒輪：pterodactyl.py
+# ================================
+#
+# Pterodactyl API設定
+pterodactyl:
+  enabled: true                  # 是否啟用Pterodactyl API
+  api_url: "https://pterodactyl.lnstw.xyz"  # Pterodactyl API 根目錄（面板位址）
+  api_key: "YOUR_API_KEY"         # Pterodactyl API 金鑰
+  server_id: "xxxxxxxx"                   # 伺服器ID
