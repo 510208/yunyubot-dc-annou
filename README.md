@@ -1,4 +1,4 @@
-![samhackerblog_about-me_cfbot](https://github.com/user-attachments/assets/708c2745-ca16-413a-a1fc-adbcd88d78fe)
+![samhackerblog_about-me_cfbot](https://github.com/user-attachments/assets/b98a13ed-0a84-4b83-aa72-ca0df5f96162)
 
 # CloudFeather Announcement Bot
 
