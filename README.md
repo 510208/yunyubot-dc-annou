@@ -1,5 +1,4 @@
-![image](https://github.com/510208/yunyubot-dc-annou/assets/107909497/b0a0cc43-1769-4ef7-b17f-704851b0175e)
-
+![samhackerblog_about-me_cfbot](https://github.com/user-attachments/assets/708c2745-ca16-413a-a1fc-adbcd88d78fe)
 
 # CloudFeather Announcement Bot
 
