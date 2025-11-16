@@ -10,7 +10,7 @@ import json
 
 logger = logging.getLogger(__name__)
 
-with open('cfg.yml', "r", encoding="utf-8") as file:
+with open('config.yml', "r", encoding="utf-8") as file:
     config = yaml.safe_load(file)["tickets"]
     message = config["messages"]
     multiline_msg = config["multiline_messages"]

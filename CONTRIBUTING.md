@@ -110,7 +110,7 @@
        await bot.add_cog(MyAwesomeCog(bot))
    ```
 
-4. **在 `cfg.yml` 中新增相應的設定項目**：
+4. **在 `config.yml` 中新增相應的設定項目**：
 
    ```yaml
    # ================================

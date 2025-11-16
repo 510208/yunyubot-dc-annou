@@ -7,7 +7,7 @@ import sqlite3
 
 logger = logging.getLogger(__name__)
 
-with open('cfg.yml', "r", encoding="utf-8") as file:
+with open('config.yml', "r", encoding="utf-8") as file:
     config = yaml.safe_load(file)["mcsm"]
     daemon_id = config["daemon_id"]
     server_id = config["server_id"]

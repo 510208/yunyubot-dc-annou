@@ -28,9 +28,9 @@ logging.getLogger('yaml').setLevel(logging.WARNING)
 # Bot
 bot = commands.Bot(command_prefix='sh!', intents=discord.Intents.all())
 
-with open('cfg.yml', 'r', encoding='utf-8') as f:
+with open('config.yml', 'r', encoding='utf-8') as f:
     cfg = yaml.load(f, Loader=yaml.FullLoader)
-    logging.info('讀取cfg.yml成功！')
+    logging.info('讀取config.yml成功！')
 
 bot.config = cfg
 
@@ -51,7 +51,7 @@ ____!___!___!___!___!___!___!___!___!____
   本模式給予開發人員更大的彈性，但也可能
   會對您的隱私造成風險，請注意！
 
-  您可以在cfg.yml中關閉除錯模式
+  您可以在config.yml中關閉除錯模式
   請注意，除錯模式可能會對機器人造成影響，
   請僅在開發環境中或需要除厝時啟動除錯模式，
   如果你不知道除錯模式的風險，請勿啟動除錯模式  
@@ -64,7 +64,7 @@ ____!___!___!___!___!___!___!___!___!____
 
 # 檢查錯誤狀態
 if cfg is None:
-    logging.error('cfg.yml為空！')
+    logging.error('您可以在config.yml為空！')
     exit()
 
 # 可以使用指令的使用者ID
@@ -313,9 +313,9 @@ async def reload_admin(ctx):
     logging.info('熱重載管理員')
     logging.info(f'請求發起人：{ctx.user}')
     # 重新讀取配置檔案
-    with open('cfg.yml', 'r', encoding='utf-8') as f:
+    with open('config.yml', 'r', encoding='utf-8') as f:
         cfg = yaml.load(f, Loader=yaml.FullLoader)
-        logging.info('讀取cfg.yml成功！')
+        logging.info('讀取config.yml成功！')
     # 重新讀取管理員ID
     NEW_ADMIN = cfg["admin_id"]
     if ctx.user.id not in BOT_ADMIN and ctx.user.id not in NEW_ADMIN:

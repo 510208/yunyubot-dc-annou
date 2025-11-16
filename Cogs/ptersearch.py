@@ -11,7 +11,7 @@ from plugins.mcsm_client import mcsmClient
 import re
 from discord.ext import tasks
 
-with open('cfg.yml', "r", encoding="utf-8") as file:
+with open('config.yml', "r", encoding="utf-8") as file:
     cfg_data = yaml.safe_load(file)
     if cfg_data is None:
         raise ValueError("配置文件讀取失敗或為空")

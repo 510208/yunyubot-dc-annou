@@ -4,9 +4,9 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-with open('cfg.yml', 'r', encoding='utf-8') as f:
+with open('config.yml', 'r', encoding='utf-8') as f:
     cfg = yaml.load(f, Loader=yaml.FullLoader)
-    logger.info('讀取cfg.yml成功！')
+    logger.info('讀取config.yml成功！')
 
 class UpdateMsgGen():
     def __init__(

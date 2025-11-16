@@ -29,7 +29,7 @@ class Remove_Message(commands.Cog):
         auto_delete_settings = self.config.get('auto_delete')
 
         if not auto_delete_settings:
-            # 如果 cfg.yml 中沒有 'auto_delete' 區塊，則不執行任何操作
+            # 如果 config.yml 中沒有 'auto_delete' 區塊，則不執行任何操作
             # 您也可以在此處記錄一個警告
             # logger.warning("設定檔中缺少 'auto_delete' 區塊，自動刪除功能可能無法正常運作。")
             return

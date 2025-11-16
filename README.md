@@ -142,7 +142,7 @@ $ pip install -r requirements.txt
 > [!CAUTION]
 > 編輯完配置後記得要使用 Reload 指令以加載新版本
 
-請參考 [`cfg.yml`](cfg.yml) 中的設定資訊來做執行
+請參考 [`config.yml`](config.yml) 中的設定資訊來做執行
 
 ## 🆖 協助開發
 

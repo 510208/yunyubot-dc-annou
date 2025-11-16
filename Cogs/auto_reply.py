@@ -7,7 +7,7 @@ import logging
 import yaml
 import re
 
-# with open('cfg.yml', "r", encoding="utf-8") as file:
+# with open('config.yml', "r", encoding="utf-8") as file:
 #     config = yaml.safe_load(file)["auto_reply"]
 #     ignore = config['ignore_rules']
 #     rules = config['rules']
