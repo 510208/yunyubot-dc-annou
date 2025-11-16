@@ -8,6 +8,7 @@ import asyncio
 import platform
 import json
 import plugins.const_codes as const_codes
+from dotenv import load_dotenv
 
 # Project Version
 VERSION = '1.0.5'
@@ -425,26 +426,8 @@ async def load_extensions(bot):
                     logging.info(f"跳過 {filename}")
 
 # Start Bot
-try:
-    with open('TOKEN.txt', 'r') as f:
-        TOKEN = f.readline()
-        logging.info('讀取TOKEN成功！')
-        # logging.info(TOKEN)
-except FileNotFoundError:
-    logging.warn('找不到 TOKEN.txt！請照 README.md 的步驟取得 TOKEN 並建立該文件')
-    # 如果找不到檔案，就尋找環境變數CFBOT_TOKEN
-    TOKEN = os.getenv('CFBOT_TOKEN')
-    if TOKEN is None:
-        logging.error('找不到 CFBOT_TOKEN 環境變數，請照 README.md 的步驟取得 TOKEN 或設定環境變數`CFBOT_TOKEN`')
-    exit(1)
-# TOKEN = cfg['TOKEN']
-# if TOKEN == '' or TOKEN == 'yourTOKEN.pastethere':
-#     logging.error('TOKEN 錯誤！')
-#     exit()
-# if re.match(r'^([MN][\w-]{23,25})\.([\w-]{6})\.([\w-]{27,39})$', TOKEN) is None:
-#     logging.warning('機器人自我檢查系統偵測到：您提供的 TOKEN 格式錯誤')
-#     logging.warning('這可能導致機器人運作崩潰或出現異常，請確保您提供的 TOKEN 是正確的')
-#     logging.warning('機器人不會因此而強制退出，但請注意機器人的運作狀況，以免發生異常！')
+# 直接改從環境變數取得TOKEN
+TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
 async def main():
     async with bot:

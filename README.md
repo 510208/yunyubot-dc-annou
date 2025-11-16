@@ -100,10 +100,7 @@ $ pip install -r requirements.txt
 
 ![image](https://github.com/510208/yunyubot-dc-annou/assets/107909497/27994e32-8374-457f-8ebe-023263df4489)
 
-5. 看到一組亂碼，存下來千萬別告訴別人。打開軟體的資料夾找到 `token.txt`（無請自行建立） ，將剛剛的亂碼貼進這個文件中
-   > 這組亂碼跟你的密碼是一樣的，因此千萬要小心不要分享給人。只要別人擁有這組亂碼，他就可以在你的 Discord 群組中為所欲為！
-6. 如果因為某些原因不方便將 TOKEN 貼在檔案中，或是使用 Bot 託管服務有需要，可不建立 `token.txt` 改採建立環境變數 `CFBOT_TOKEN` 的方式
-   （[1.0.5](https://github.com/510208/cfbot/releases/tag/1.0.5) 更新，此項特性僅適用於更新後的 CFBot）
+5. 看到一組亂碼，存下來千萬別告訴別人。將它複製起來，在 CFBot 根目錄下找到名為`.env.example`的檔案，將它複製一份並重新命名為`.env`，然後用文字編輯器（例如 Notepad++、VSCode）打開，將 `YOUR_BOT_TOKEN_HERE` 替換成剛剛複製的 Token，然後存檔
 
 ### ▶ 機器人，啟動！！
 
